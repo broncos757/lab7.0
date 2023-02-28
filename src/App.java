@@ -1,29 +1,35 @@
 
-
-import cs15.labs.cupcakeSupport.CS15CupcakeFrame;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * This is the second lab, where you are going to run a cupcake shop!
+ * Here's cartoon! Your first JavaFX assignment!
+ * Before you start coding your cartoon, take a look at
+ * the lecture slides and JavaFX Guide for all the
+ * information you'll need (and more!).
+ *
+ * Please put your overall comments for the project here.
+ *
  */
+
 public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        // This sets up the empty GUI (Graphical User Interface) frame!
-        new CS15CupcakeFrame(stage);
-        CupcakeShop t = new CupcakeShop();
-        //TODO Instantiate the CupcakeShop here
+        // Create top-level object, set up the scene, and show the stage here.
+        PaneOrganizer organizer = new PaneOrganizer();
+        Scene scene = new Scene(organizer.getRoot(), 500, 500);
+        stage.setScene(scene);
+        stage.setTitle("Kitty Cat");
+        stage.show();
     }
 
     /*
-     * This is the main method. Don't worry about it, as it just makes an
-     * instance of the App class.
-     *
-     * DO NOT CHANGE THIS CODE.
+     * Here is the mainline! No need to change this.
      */
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] argv) {
+        // launch is a method inherited from Application
+        launch(argv);
     }
 }
