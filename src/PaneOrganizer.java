@@ -7,55 +7,37 @@ import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
+import javafx.scene.input.KeyCode;
 public class PaneOrganizer {
 
     private VBox root;
-    private Cat cat;
+    private Game g;
+    private Pane gamePane;
 
-    private Label label;
 
     public PaneOrganizer() {
         this.root = new VBox();
-        Pane catPane = new Pane();
-        this.cat = new Cat(catPane);
-        this.root.getChildren().addAll(catPane);
 
-        label = new Label();
-        this.root.getChildren().add(label);
+        gamePane = new Pane();
+        g = new Game(gamePane);
+        root.getChildren().addAll(gamePane);
 
-        Button b = new Button("quit");
-        this.root.getChildren().addAll(b);
-        b.setOnAction((ActionEvent e)-> System.exit(1));
+        root.setFocusTraversable(true);
+        root.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.RIGHT) {
+            g.moveRight();
+        }
+        else if(event.getCode() == KeyCode.LEFT) {
+                g.moveLeft();
+            }
+        });
 
-        Button a = new Button("Change Outfit");
-        this.root.getChildren().addAll(a);
-        a.setOnAction((ActionEvent e)-> cat.changeOutfit());
-
-        label = new Label("label");
-        this.root.getChildren().add(label);
-
-        this.setupTimeline();
+        Platform p = new ExtraBouncyPlatform(50,50);
 
     }
-
-    private void setupTimeline(){
-        KeyFrame kf = new KeyFrame(Duration.seconds(.1), (ActionEvent e) -> this.update());
-        Timeline timeline = new Timeline(kf);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-    }
-    private void update(){
-        this.cat.moveRight();
-        this.updateLabel();
-    }
-
-    private void updateLabel(){
-        double x = cat.getPos();
-        this.label.setText("The Position is: " + x);
-    }
-
 
     public Pane getRoot() {
         return this.root;
     }
 }
+
