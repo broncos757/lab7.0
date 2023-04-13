@@ -6,7 +6,7 @@ public class AlienArrayCreator2D {
 
     private Pane alienPane;
     private Alien[][] alienArray2D; //here's the declaration of the array variable!
-    private Alien w;
+    private Alien newAlien;
 
     private Boolean rowMajor = true;
 
@@ -19,7 +19,7 @@ public class AlienArrayCreator2D {
 
     public void generateAliens() {
         this.reset(); //don't worry about this! it's just to make sure you don't double generate
-
+        //fix this
         /* TODO:
             1. Loop to each array in your array of arrays
             2. Loop through each index in each array in your array of arrays
@@ -31,18 +31,18 @@ public class AlienArrayCreator2D {
          */
 
         for(int i = 0; i < alienArray2D.length; i++){
-            for(int c = 0; c < alienArray2D[0].length; c++){
+            for(int j = 0; j < alienArray2D[i].length; j++){
                // Alien a = new Alien(Color.BLUE); - why does it give me an error here!?
-                if(c%2==0){
-                    w = new Alien(Color.BLUE);
-                    alienArray2D[i][c] = w;
-                    w.addToPane(alienPane);
+                if(i%2==0){
+                    newAlien = new Alien(Color.BLUE);
+                    alienArray2D[i][j] = newAlien;
+                    newAlien.addToPane(alienPane);
 
                 }
                 else{
-                    w = new Alien(Color.GREEN);
-                    alienArray2D[i][c] = w;
-                    w.addToPane(alienPane);
+                    newAlien = new Alien(Color.GREEN);
+                    alienArray2D[i][j] = newAlien;
+                    newAlien.addToPane(alienPane);
                 }
             }
         }
@@ -59,19 +59,19 @@ public class AlienArrayCreator2D {
             4. Set the x position based on the column (minor index)
 
          */
+        //fix
         for(int i = 0; i < alienArray2D.length; i++){
-            for(int c = 0; c < alienArray2D[0].length; c++){
+            for(int j = 0; j < alienArray2D[0].length; j++){
                 if(i %2 ==0){
-                    alienArray2D[i][c].setColor(Color.SKYBLUE);
+                    alienArray2D[i][j].setColor(Color.SKYBLUE);
                 }
                 else{
-                    alienArray2D[i][c].setColor(Color.LIGHTGREEN);
+                    alienArray2D[i][j].setColor(Color.LIGHTGREEN);
                 }
-                alienArray2D[i][c].setXPos(50 + c *60);
-                alienArray2D[i][c].setYPos(50+ i *60);
+                alienArray2D[i][j].setXPos(50 + j *60);
+                alienArray2D[i][j].setYPos(50+ i *60);
                 }
             }
-        rowMajor = true;
         }
 
 
@@ -90,13 +90,12 @@ public class AlienArrayCreator2D {
             2. Set the y position based on the column (major index)
             3. Set the x position based on the row (minor index)
          */
-        for(int i = 0; i < alienArray2D.length; i++){
-            for(int c = 0; c < alienArray2D[0].length; c++){
-                alienArray2D[i][c].setXPos(50 + i *60);
-                alienArray2D[i][c].setYPos(50+ c *60);
+        for(int i = 0; i < alienArray2D[0].length; i++){
+            for(int j = 0; j < alienArray2D.length; j++){
+                alienArray2D[j][i].setXPos(50 + j *60);
+                alienArray2D[j][i].setYPos(50+ i *60);
             }
         }
-        rowMajor = false;
 
     }
 
@@ -110,6 +109,7 @@ public class AlienArrayCreator2D {
                3. If the for-loop finishes and it did not count 3 evil aliens within the loop then return
                    false
         */
+        //fix
         int counter = 0;
         for(int i = 0; i < aliens.length; i++) {
             if (aliens[i].getIsEvil()) {
@@ -134,32 +134,14 @@ public class AlienArrayCreator2D {
                2. Check if the row (or column) is evil
                3. If the row is evil, change the color of all aliens to be red
         */
-            if(rowMajor) {
-                System.out.println("rowMajor");
                 for (int i = 0; i < alienArray2D.length; i++) {
                     if (checkEvilAliens(alienArray2D[i])) {
                         for (int d = 0; d < alienArray2D[0].length; d++) {
                             alienArray2D[i][d].setColor(Color.RED);
                         }
-
                     }
                 }
-            }
-            else{
-                System.out.println("colMajor");
-                for (int i = 0; i < alienArray2D[0].length; i++){
-                    Alien[] arr = new Alien[alienArray2D.length];
 
-                    for(int c = 0; c < alienArray2D.length; c++){
-                        arr[c] = alienArray2D[c][i];
-                    }
-                    if(checkEvilAliens(arr)){
-                        for(int e = 0; e < alienArray2D.length; e++){
-                            alienArray2D[e][i].setColor(Color.RED);
-                        }
-                    }
-                }
-            }
         }
 
 
