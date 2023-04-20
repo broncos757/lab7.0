@@ -47,6 +47,7 @@ public class Alien {
     }
 
     public boolean getIsEvil() {
+
         return this.isEvil;
     }
 

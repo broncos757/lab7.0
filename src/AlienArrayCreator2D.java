@@ -32,8 +32,7 @@ public class AlienArrayCreator2D {
 
         for(int i = 0; i < alienArray2D.length; i++){
             for(int j = 0; j < alienArray2D[i].length; j++){
-               // Alien a = new Alien(Color.BLUE); - why does it give me an error here!?
-                if(i%2==0){
+                if((i+j)%2==0){
                     newAlien = new Alien(Color.BLUE);
                     alienArray2D[i][j] = newAlien;
                     newAlien.addToPane(alienPane);
@@ -61,15 +60,16 @@ public class AlienArrayCreator2D {
          */
         //fix
         for(int i = 0; i < alienArray2D.length; i++){
-            for(int j = 0; j < alienArray2D[0].length; j++){
+            for(int j = 0; j < alienArray2D[i].length; j++){
                 if(i %2 ==0){
                     alienArray2D[i][j].setColor(Color.SKYBLUE);
                 }
                 else{
                     alienArray2D[i][j].setColor(Color.LIGHTGREEN);
                 }
-                alienArray2D[i][j].setXPos(50 + j *60);
-                alienArray2D[i][j].setYPos(50+ i *60);
+                alienArray2D[i][j].setXPos(Constants.CP_HEIGHT + j *Constants.PANEL_W/5);
+                alienArray2D[i][j].setYPos(Constants.CP_HEIGHT+ i *Constants.PANEL_H/7);
+                //should be set to constant
                 }
             }
         }
@@ -92,8 +92,8 @@ public class AlienArrayCreator2D {
          */
         for(int i = 0; i < alienArray2D[0].length; i++){
             for(int j = 0; j < alienArray2D.length; j++){
-                alienArray2D[j][i].setXPos(50 + j *60);
-                alienArray2D[j][i].setYPos(50+ i *60);
+                alienArray2D[j][i].setXPos(Constants.CP_HEIGHT + j *Constants.PANEL_W/7);
+                alienArray2D[j][i].setYPos(Constants.CP_HEIGHT + i *Constants.PANEL_W/6);
             }
         }
 
@@ -112,7 +112,7 @@ public class AlienArrayCreator2D {
         //fix
         int counter = 0;
         for(int i = 0; i < aliens.length; i++) {
-            if (aliens[i].getIsEvil()) {
+            if (aliens[i].getIsEvil()==true) {
                 counter++;
             }
             if (counter >= 3) {
@@ -133,14 +133,35 @@ public class AlienArrayCreator2D {
                1. Loop through all the rows (or columns if column-major) of alien  array
                2. Check if the row (or column) is evil
                3. If the row is evil, change the color of all aliens to be red
+
         */
-                for (int i = 0; i < alienArray2D.length; i++) {
-                    if (checkEvilAliens(alienArray2D[i])) {
-                        for (int d = 0; d < alienArray2D[0].length; d++) {
-                            alienArray2D[i][d].setColor(Color.RED);
+
+                if(alienArray2D.length > 5) {
+                    for (int i = 0; i < alienArray2D.length; i++) {
+                        if (checkEvilAliens(alienArray2D[i])==true) {
+                            for (int d = 0; d < alienArray2D[0].length; d++) {
+                                alienArray2D[i][d].setColor(Color.RED);
+                            }
                         }
                     }
                 }
+                /*
+                                else{
+                    for (int i = 0; i < alienArray2D[0].length; i++) {
+                        Alien[] arr = new Alien[7];
+                        for(int j = 0; j < alienArray2D.length; j++){
+                            arr[j] = alienArray2D[j][i];
+                        }
+
+                        if (checkEvilAliens(arr)){
+                            for (int k = 0; k < alienArray2D[0].length; k++) {
+                                alienArray2D[k][i].setColor(Color.RED);
+                            }
+                        }
+                    }
+                }
+
+                */
 
         }
 
